@@ -22,7 +22,6 @@ async def get_user_addresses(user_id: int):
 @addresses.post('/', response_model=AddressOut, status_code=201)
 async def create_address(payload: AddressIn):
     address_id = await db_manager.add_address(payload)
-
     response = {
         'id': address_id,
         **payload.dict()

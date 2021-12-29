@@ -1,9 +1,7 @@
 import json
 import os
-from datetime import datetime
-
 import httpx
-from fastapi.encoders import jsonable_encoder
+
 
 TRANSACTION_INFO_HOST_URL = 'http://localhost:8000/info/generate/id'
 url = os.environ.get('TRANSACTION_INFO_HOST_URL') or TRANSACTION_INFO_HOST_URL

@@ -20,19 +20,19 @@ class UserIn(BaseModel):
 
 
 class UserOut(UserIn):
-    id: int = Field(default=None, primary_key=True)
+    id: int
 
 
 class UserUpdate(UserIn):
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
+    first_name: str
+    last_name: str
 
 
 class UserDTO(BaseModel):
-    id: Optional[int]
-    first_name: Optional[str]
-    last_name: Optional[str]
-    addresses: Optional[List[AddressIn]] = None
+    id: int
+    first_name: str
+    last_name: str
+    addresses: List[AddressIn]
 
-    class Config:
-        orm_mode = True
+ #   class Config:
+  #      orm_mode = True

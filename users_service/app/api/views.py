@@ -4,19 +4,26 @@ from fastapi import APIRouter, HTTPException
 
 from users_service.app.api.models import UserOut, UserIn, UserUpdate, UserDTOCls
 from users_service.app.api import db_manager
-from users_service.app.api.addresses_adapter import get_user_addresses
+from users_service.app.api.addresses_adapter import get_user_addresses, create_addresses
 from users_service.app.api.transactions_adapter import get_user_transactions
 from users_service.app.api.models import UserDTO
 
 users = APIRouter()
 
 
+@users.get('/')
+async def home():
+    return "Hello Users"
+
+
 @users.post('/', response_model=UserOut, status_code=201)
-async def create_user(payload: UserIn):
-    user_id = await db_manager.add_user(payload)
+async def create_user(user_dto: UserDTO):
+    user = UserIn(id=user_dto.id, first_name=user_dto.first_name, last_name=user_dto.last_name)
+    user_id = await db_manager.add_user(user)
+    address_id = create_addresses(user_dto.addresses)
     response = {
         'id': user_id,
-        **payload.dict()
+        **user_dto.dict(),
     }
     return response
 

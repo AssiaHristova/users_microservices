@@ -2,8 +2,8 @@ from users_service.app.api.db import database, users
 from users_service.app.api.models import UserIn
 
 
-async def add_user(payload: UserIn):
-    query = users.insert().values(**payload.dict())
+async def add_user(user: UserIn):
+    query = users.insert().values(**user.dict())
     return await database.execute(query=query)
 
 
@@ -22,11 +22,11 @@ async def delete_user(id: int):
     return await database.execute(query=query)
 
 
-async def update_user(id: int, payload: UserIn):
+async def update_user(id: int, user: UserIn):
     query = (
         users
         .update()
         .where(users.c.id == id)
-        .values(**payload.dict())
+        .values(**user.dict())
     )
     return await database.execute(query=query)
