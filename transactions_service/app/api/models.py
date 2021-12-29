@@ -1,11 +1,8 @@
-from typing import Optional
-
-from pydantic import BaseModel, Field
+from datetime import datetime
+from pydantic import BaseModel
 
 
 class TransactionIn(BaseModel):
-    id: str
-    date_of_execution: str
     user_id: int
     amount: float
 
@@ -15,8 +12,8 @@ class TransactionOut(TransactionIn):
 
 
 class TransactionCreate(TransactionIn):
-    id: str
-    date_of_execution: str
+    id: str = None
+    date_of_execution: datetime = None
     user_id: int
     amount: float
 

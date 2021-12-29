@@ -9,8 +9,6 @@ TRANSACTION_INFO_HOST_URL = 'http://localhost:8000/info/generate/id'
 url = os.environ.get('TRANSACTION_INFO_HOST_URL') or TRANSACTION_INFO_HOST_URL
 
 
-
-
 def get_transaction_info():
     max_count = 0
     try:
@@ -37,5 +35,4 @@ def parse_transaction_info():
     transaction_info = get_transaction_info()
     id = transaction_info["id"]
     date_of_execution = transaction_info["dateOfExecution"]
-    date_time = date_of_execution[:-7] + "+00:00Z"
-    return [id, date_time]
+    return [id, date_of_execution]

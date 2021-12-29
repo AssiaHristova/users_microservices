@@ -1,9 +1,8 @@
 from transactions_service.app.api.db import database, transactions
-from transactions_service.app.api.models import TransactionIn
+from transactions_service.app.api.models import TransactionIn, TransactionCreate, TransactionUpdate
 
 
-async def add_transaction(transaction: TransactionIn):
-    attrs = transaction.dict()
+async def add_transaction(transaction: TransactionCreate):
     query = transactions.insert().values(**transaction.dict())
     return await database.execute(query=query)
 
