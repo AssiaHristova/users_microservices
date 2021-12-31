@@ -1,8 +1,7 @@
-import os
-import psycopg2
+
 from sqlalchemy import (Column, Integer, MetaData, String, Table,
                         create_engine, ARRAY)
-import asyncpg
+
 from databases import Database
 
 DATABASE_URL = 'postgresql://root:root@localhost/users_service'

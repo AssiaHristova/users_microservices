@@ -2,7 +2,7 @@ from addresses_service.app.api.models import AddressIn
 from addresses_service.app.api.db import addresses, database
 
 
-async def add_address(payload: AddressIn):
+async def add_address(adddress: AddressIn):
     query = addresses.insert().values(**payload.dict())
     return await database.execute(query=query)
 
@@ -27,12 +27,12 @@ async def delete_address(id: int):
     return await database.execute(query=query)
 
 
-async def update_address(id: int, payload: AddressIn):
+async def update_address(id: int, address: AddressIn):
     query = (
         addresses
         .update()
         .where(addresses.c.id == id)
-        .values(**payload.dict())
+        .values(**address.dict())
     )
     return await database.execute(query=query)
 

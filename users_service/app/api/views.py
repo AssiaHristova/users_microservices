@@ -1,8 +1,8 @@
-import json
+
 from typing import List
 from fastapi import APIRouter, HTTPException
 
-from users_service.app.api.models import UserOut, UserIn, UserUpdate, UserDTOCls
+from users_service.app.api.models import UserOut, UserIn, UserUpdate
 from users_service.app.api import db_manager
 from users_service.app.api.addresses_adapter import get_user_addresses, create_addresses
 from users_service.app.api.transactions_adapter import get_user_transactions
@@ -18,6 +18,9 @@ async def home():
 
 @users.post('/', response_model=UserOut, status_code=201)
 async def create_user(user_dto: UserDTO):
+    user = await db_manager.get_user(user_dto.id)
+    if user:
+        raise HTTPException(status_code=403, detail="User with that id already exists.")
     user = UserIn(id=user_dto.id, first_name=user_dto.first_name, last_name=user_dto.last_name)
     user_id = await db_manager.add_user(user)
     address_id = create_addresses(user_dto.addresses)

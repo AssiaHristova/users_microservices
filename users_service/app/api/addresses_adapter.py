@@ -4,7 +4,7 @@ import os
 import httpx
 import requests
 
-from addresses_service.app.api.models import AddressCls, AddressIn
+from addresses_service.app.api.models import AddressIn
 
 ADDRESSES_SERVICE_HOST_URL = 'http://localhost:8002/'
 url = os.environ.get('ADDRESSES_SERVICE_HOST_URL') or ADDRESSES_SERVICE_HOST_URL
