@@ -17,7 +17,7 @@ async def startup():
 async def shutdown():
     await database.disconnect()
 
-app.include_router(transactions)
+app.include_router(transactions, tags=['transactions'])
 
 
 if __name__ == "__main__":

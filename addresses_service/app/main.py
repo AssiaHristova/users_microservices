@@ -17,7 +17,7 @@ async def startup():
 async def shutdown():
     await database.disconnect()
 
-app.include_router(addresses)
+app.include_router(addresses, tags=['addresses'])
 
 
 if __name__ == "__main__":

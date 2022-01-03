@@ -4,8 +4,8 @@ from sqlalchemy import (Column, Integer, MetaData, String, Table,
 
 from databases import Database
 
-DATABASE_URL = 'postgresql://root:root@localhost/postgres'
-#DATABASE_URI = os.getenv('DATABASE_URI')
+#DATABASE_URL = 'postgresql://root:root@localhost/postgres'
+DATABASE_URL = os.getenv('DATABASE_URI')
 
 engine = create_engine(DATABASE_URL)
 metadata = MetaData()
