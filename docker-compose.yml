@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  users_service:
+    build: ./users_service
+    command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8001
+    volumes:
+      - ./users_service/:/app/
+    ports:
+      - 8001:8001
+    environment:
+      - DATABASE_URI=postgresql://root:root@localhost/users
+      - ADDRESSES_SERVICE_HOST_URL = http://localhost:8002/
+      - TRANSACTION_SERVICE_HOST_URL = http://localhost:8003/all/
+
+  users:
+    image: postgres:12.1-alpine
+    volumes:
+      - postgres_data_users:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=users
+
+  addresses_service:
+    build: ./addresses_service
+    command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8002
+    volumes:
+      - ./addresses_service/:/app/
+    ports:
+      - 8002:8002
+    environment:
+      - DATABASE_URI=#DATABASE_URL = 'postgresql://root:root@localhost/users'
+
+  transactions_service:
+    build: ./transactions_service
+    command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8003
+    volumes:
+      - ./transactions_service/:/app/
+    ports:
+      - 8003:8003
+    environment:
+      - DATABASE_URI=#DATABASE_URL = 'postgresql://root:root@localhost/postgres'
+      - TRANSACTION_INFO_HOST_URL = 'http://localhost:8000/info/generate/id'
+
+volumes:
+  postgres_data_users:
