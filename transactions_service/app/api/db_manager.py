@@ -13,7 +13,10 @@ async def get_transaction(id):
 
 
 async def get_user_transactions(user_id):
-    query = transactions.select().where(transactions.c.user_id==user_id)
+    query = transactions.select().\
+        where(transactions.c.user_id==user_id).\
+        order_by(transactions.c.date_of_execution.desc())
+  #      limit(count)
     return await database.fetch_all(query=query)
 
 

@@ -2,8 +2,8 @@ from addresses_service.app.api.models import AddressIn
 from addresses_service.app.api.db import addresses, database
 
 
-async def add_address(adddress: AddressIn):
-    query = addresses.insert().values(**payload.dict())
+async def add_address(address: AddressIn):
+    query = addresses.insert().values(**address.dict())
     return await database.execute(query=query)
 
 

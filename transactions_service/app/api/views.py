@@ -19,8 +19,9 @@ async def get_all_transactions():
 
 
 @transactions.get("/all/{user_id}", response_model=List[TransactionOut])
-async def get_user_transactions(user_id: int):
-    return await db_manager.get_user_transactions(user_id)
+async def get_user_transactions(user_id: int, count: int = 3):
+    all_transactions = await db_manager.get_user_transactions(user_id)
+    return all_transactions
 
 
 @transactions.post('/', response_model=TransactionOut, status_code=201)

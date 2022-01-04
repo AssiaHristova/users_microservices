@@ -31,7 +31,7 @@ async def create_user(user_dto: UserDTO):
     return response
 
 
-@users.get('/', response_model=List[UserOut])
+@users.get('/all', response_model=List[UserOut])
 async def get_all_users():
     return await db_manager.get_all_users()
 

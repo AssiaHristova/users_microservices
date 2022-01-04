@@ -9,6 +9,11 @@ from addresses_service.app.api import db_manager
 addresses = APIRouter()
 
 
+@addresses.get('/')
+async def home():
+    return "Hello Addresses"
+
+
 @addresses.get('/all', response_model=List[AddressOut])
 async def get_all_addresses():
     return await db_manager.get_all_addresses()
