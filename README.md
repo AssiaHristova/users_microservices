@@ -1,0 +1,1 @@
+# users_microservices consist of 3 services that communicate with each other. The users_service is an Aggregator, that receives the client request and sends request to the addresses_service and transactions_service. The transactions_service itself communicates with a 3rd party API. The communication is happening in the Adapters, which send requests to the other services.
